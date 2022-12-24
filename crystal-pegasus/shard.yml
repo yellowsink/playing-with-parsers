@@ -1,0 +1,13 @@
+name: parsercr
+version: 0.1.0
+
+authors:
+  - yellowsink <yellowsink@riseup.net>
+
+targets:
+  parsercr:
+    main: src/parsercr.cr
+
+crystal: 1.2.2
+
+license: MIT

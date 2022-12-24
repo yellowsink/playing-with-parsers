@@ -1,0 +1,21 @@
+token whitespace = /[ \n\r\t]+/ [ skip ];
+token number = /[0-9]+(\.[0-9]+)?/;
+token plus = /\+/;
+token minus = /-/;
+token mul = /\*/;
+token div = /\//;
+token lparen = /\(/;
+token rparen = /\)/;
+
+rule S = Expr;
+
+rule Expr = Expr plus Fact
+          | Expr minus Fact
+          | Fact;
+
+rule Fact = Fact mul Atom
+          | Fact div Atom
+          | Atom;
+
+rule Atom = number
+          | lparen Expr rparen;

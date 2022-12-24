@@ -11,3 +11,8 @@ tab_width = 4
 
 [*.fs]
 indent_style = space
+
+# ugh crystal please just work with me here
+[*.cr]
+indent_style = space
+indent_size = 2
