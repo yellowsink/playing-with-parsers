@@ -18,10 +18,11 @@ The output should be the result of the calculation.
 
 ## Evaluations of parsers
 
-| TOC                           |
-| ----------------------------- |
-| [Rust: Plex](#rust-plex)      |
-| [F#: FsLexYacc](#f-fslexyacc) |
+| TOC                                  |
+| ------------------------------------ |
+| [Rust: Plex](#rust-plex)             |
+| [F#: FsLexYacc](#f-fslexyacc)        |
+| [Crystal: Pegasus](#crystal-pegasus) |
 
 ### Rust: Plex
 
@@ -56,20 +57,21 @@ The parser, however, I like a LOT.
 
 It still has a lot of custom syntax, but it follows stringent rules that make it quite easy to understand
 after getting used to it:
- - `%{ code %}` will run `code` before the parser code, so you can import things for use later
- - `%xyz` is a keyword to teach FsYacc about your parser
-	* `%start r` tells FsYacc about a rule that should be exposed as an entrypoint
-	* `%token x y z` tells FsYacc to expose a list of tokens to the lexer
-	* `%token <t> x` tells FsYacc to expose a token to the lexer, with a payload type
-	* `%type <t> r` tells FsYacc what the returned type of a rule should be.
-		This is only necessary on entrypoints, as the sub-rules are subject to F#'s type inference.
- - `%%` tells FsYacc that you're done describing your parser and want to start writing grammar.
- - grammar rules are of the form `rulename: token1 token2 token3 { expression } | ...`
-	* the rulename allows you to use the rule in place of tokens in other rules or recursively
-	* anything in `{}` is ran as F# code, and its returned value is the parsed node of that rule:
-		create your AST nodes in this block!
-	* the `|` specifies alternate matches, in descending preference
-	* the values of each token/rule can be acquired in the expression as `$1, $2, $3, ...`
+
+-   `%{ code %}` will run `code` before the parser code, so you can import things for use later
+-   `%xyz` is a keyword to teach FsYacc about your parser
+    -   `%start r` tells FsYacc about a rule that should be exposed as an entrypoint
+    -   `%token x y z` tells FsYacc to expose a list of tokens to the lexer
+    -   `%token <t> x` tells FsYacc to expose a token to the lexer, with a payload type
+    -   `%type <t> r` tells FsYacc what the returned type of a rule should be.
+        This is only necessary on entrypoints, as the sub-rules are subject to F#'s type inference.
+-   `%%` tells FsYacc that you're done describing your parser and want to start writing grammar.
+-   grammar rules are of the form `rulename: token1 token2 token3 { expression } | ...`
+    -   the rulename allows you to use the rule in place of tokens in other rules or recursively
+    -   anything in `{}` is ran as F# code, and its returned value is the parsed node of that rule:
+        create your AST nodes in this block!
+    -   the `|` specifies alternate matches, in descending preference
+    -   the values of each token/rule can be acquired in the expression as `$1, $2, $3, ...`
 
 Writing parsers like this felt a lot more like writing grammar rules than writing code,
 and creates incredibly compact yet very readable grammars - it's not dense, just compact.
@@ -79,3 +81,7 @@ it felt much more centralised than defining a separate union just for tokens.
 
 I would happily use FsLexYacc for more things, even if I'm not overly taken with the lexer,
 because its very efficient and the parsers are clean and concise.
+
+### Crystal: Pegasus
+
+// TODO
