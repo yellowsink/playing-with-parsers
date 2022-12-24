@@ -1,0 +1,27 @@
+%{
+open Ast
+%}
+
+// entrypoint
+%start expr
+
+// tokens used in the lexer
+%token LPAREN RPAREN PLUS MINUS MUL DIV EOF
+%token <float> NUMBER
+
+// define type of parsed AST
+%type <Ast.Expr> expr
+
+// enter rules stage
+%%
+
+expr: expr PLUS fact { Add($1, $3) }
+	| expr MINUS fact { Minus($1, $3) }
+	| fact { $1 }
+
+fact: fact MUL atom { Mult($1, $3) }
+	| fact DIV atom { Div($1, $3) }
+	| atom { $1 }
+
+atom: NUMBER { Number($1) }
+	| LPAREN expr RPAREN { $2 }
