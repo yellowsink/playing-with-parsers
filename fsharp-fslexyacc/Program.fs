@@ -17,4 +17,4 @@ let rec evaluate =
     | Ast.Mult(n1, n2) -> evaluate n1 * evaluate n2
     | Ast.Div(n1, n2) -> evaluate n1 / evaluate n2
 
-printfn "%A" (evaluate parsed)
+Console.WriteLine(evaluate parsed)
