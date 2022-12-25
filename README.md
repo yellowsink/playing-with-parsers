@@ -84,4 +84,29 @@ because its very efficient and the parsers are clean and concise.
 
 ### Crystal: Pegasus
 
-// TODO
+Pegasus is a more traditional model of parser generator, for the programming languages Crystal and C.
+
+I found using it to be a bit annoying compared to more integrated tools that work with the language's
+build tools to automatically compile your grammar, but it wasn't a huge issue.
+
+The grammar syntax is very comfortable, and makes defining your parser very quick and clean.
+
+Unfortunately, this grammar syntax omits one very important part of grammars in most parsers:
+the part of each rule that specifies how to build your AST.
+
+In most grammars, each rule has a piece of code that is passed the value of each token / rule that makes
+up the match, and can then use this to build AST nodes.
+
+In Pegasus, however, you are just given a generic tree where each node just tells you if it's a token or rule,
+which token/rule type it is (as an unlabelled number), and either a payload value or list of child nodes.
+
+This is a shame because the grammar syntax is extremely nice, but this omitted feature means that parsing the
+outputted tree is a gigantic pain in the ass, and entirely ruins Pegasus.
+
+For this ONE reason, I would not use Pegasus for any parsing work.
+
+Also, here's a comparison of the functions that evaluate the tree in Rust and Crystal:
+
+https://github.com/yellowsink/playing-with-parsers/blob/master/rust-plex/src/main.rs#L10-L18
+
+https://github.com/yellowsink/playing-with-parsers/blob/master/crystal-pegasus/src/parsercr.cr#L3-L110
